@@ -4,39 +4,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manavistra Foundation | Empowering Lives</title>
+    <title>Manavistra Foundation | Restoring Dignity</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4 {
-            font-family: 'Merriweather', serif;
-        }
-
-        .hero-bg {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+        
+        .hero-gradient {
+            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), 
+                        url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
         }
 
-        .clip-shape {
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
-        /* Gallery Hover Effect */
-        .gallery-item:hover .gallery-overlay {
-            opacity: 1;
+        .impact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
+
+        .custom-shape {
+            clip-path: polygon(0 0, 100% 0, 100% 95%, 0% 100%);
+        }
+
+        /* Carousel Styles */
+        .carousel-slide {
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            display: none;
+        }
+        .carousel-slide.active {
+            opacity: 1;
+            display: flex;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #1e3a8a; border-radius: 10px; }
     </style>
     <script>
         tailwind.config = {
@@ -44,10 +58,10 @@
                 extend: {
                     colors: {
                         brand: {
-                            blue: '#1e3a8a', // Dark Blue
-                            light: '#3b82f6', // Light Blue
-                            orange: '#f97316', // Orange for Call to Actions
-                            bg: '#f3f4f6'
+                            blue: '#1e3a8a',
+                            orange: '#f97316',
+                            gold: '#fbbf24',
+                            dark: '#0f172a'
                         }
                     }
                 }
@@ -56,159 +70,251 @@
     </script>
 </head>
 
-<body class="bg-gray-50 text-gray-800 antialiased">
+<body class="bg-gray-50 text-slate-900 antialiased">
 
-    <!-- Navigation -->
-    <nav class="bg-white shadow-md fixed w-full z-50 transition-all duration-300" id="navbar">
+    <!-- Navbar -->
+    <nav class="glass-nav fixed w-full z-50 border-b border-gray-100 transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20">
                 <div class="flex items-center">
-                    <a href="#" class="flex-shrink-0 flex items-center group">
-                        <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1764851074/Screenshot_2025-12-04_175159-removebg-preview_yqyj8n.png" alt="Manavistra Logo" class="h-14 w-auto mr-3 group-hover:scale-105 transition transform" onerror="this.onerror=null; this.src='https://via.placeholder.com/50x50?text=MF'">
+                    <a href="#" class="flex items-center space-x-3 group">
+                        <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1764851074/Screenshot_2025-12-04_175159-removebg-preview_yqyj8n.png" 
+                             alt="Logo" class="h-12 w-auto group-hover:rotate-6 transition duration-300">
                         <div class="flex flex-col">
-                            <span class="font-bold text-2xl text-brand-blue tracking-tight leading-none">Manavistra</span>
-                            <span class="text-xs text-brand-orange font-semibold tracking-wider">FOUNDATION</span>
+                            <span class="font-bold text-xl text-brand-blue tracking-tight leading-none uppercase">Manavistra</span>
+                            <span class="text-[10px] text-brand-orange font-bold tracking-[0.2em]">FOUNDATION</span>
                         </div>
                     </a>
                 </div>
-                <div class="hidden lg:flex items-center space-x-6">
-                    <a href="#about" class="text-gray-600 hover:text-brand-blue font-medium transition text-sm uppercase tracking-wide">About</a>
-                    <a href="#programs" class="text-gray-600 hover:text-brand-blue font-medium transition text-sm uppercase tracking-wide">Work</a>
-                    <a href="#events" class="text-gray-600 hover:text-brand-blue font-medium transition text-sm uppercase tracking-wide">Events</a>
-                    <a href="#gallery" class="text-gray-600 hover:text-brand-blue font-medium transition text-sm uppercase tracking-wide">Gallery</a>
-                    <a href="#volunteer" class="text-gray-600 hover:text-brand-blue font-medium transition text-sm uppercase tracking-wide">Volunteer</a>
-                    <a href="#donate" class="bg-brand-orange hover:bg-orange-600 text-white px-6 py-2 rounded-full font-bold shadow-lg transform hover:-translate-y-0.5 transition duration-200">
-                        Donate Now
+                
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="#about" class="text-sm font-semibold text-brand-dark hover:text-brand-orange transition">ABOUT</a>
+                    <a href="#programs" class="text-sm font-semibold text-brand-dark hover:text-brand-orange transition">OUR WORK</a>
+                    <a href="#impact" class="text-sm font-semibold text-brand-dark hover:text-brand-orange transition">IMPACT</a>
+                    <a href="#volunteer" class="text-sm font-semibold text-brand-dark hover:text-brand-orange transition">VOLUNTEER</a>
+                    <a href="#donate" class="bg-brand-orange text-white px-6 py-2.5 rounded-full font-bold shadow-lg hover:shadow-orange-200 hover:-translate-y-0.5 transition active:scale-95">
+                        DONATE NOW
                     </a>
                 </div>
-                <!-- Mobile menu button -->
+
                 <div class="lg:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-brand-blue focus:outline-none">
-                        <i class="fas fa-bars text-2xl"></i>
+                    <button id="mobile-menu-btn" class="p-2 text-brand-dark focus:outline-none">
+                        <i class="fas fa-bars-staggered text-2xl"></i>
                     </button>
                 </div>
             </div>
         </div>
+        
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#about" class="block px-3 py-2 text-gray-600 hover:text-brand-blue font-medium">About Us</a>
-                <a href="#programs" class="block px-3 py-2 text-gray-600 hover:text-brand-blue font-medium">Our Work</a>
-                <a href="#events" class="block px-3 py-2 text-gray-600 hover:text-brand-blue font-medium">Events</a>
-                <a href="#gallery" class="block px-3 py-2 text-gray-600 hover:text-brand-blue font-medium">Gallery</a>
-                <a href="#volunteer" class="block px-3 py-2 text-gray-600 hover:text-brand-blue font-medium">Volunteer</a>
-                <a href="#contact" class="block px-3 py-2 text-gray-600 hover:text-brand-blue font-medium">Contact</a>
-                <a href="#donate" class="block px-3 py-2 text-brand-orange font-bold">Donate Now</a>
-            </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-white/95 backdrop-blur-lg border-b px-4 py-6 space-y-4 shadow-xl">
+            <a href="#about" class="block font-bold text-lg text-brand-dark">About Us</a>
+            <a href="#programs" class="block font-bold text-lg text-brand-dark">Our Programs</a>
+            <a href="#impact" class="block font-bold text-lg text-brand-dark">Recent Impact</a>
+            <a href="#volunteer" class="block font-bold text-lg text-brand-dark">Volunteer</a>
+            <a href="#donate" class="block font-bold text-lg text-brand-orange">Donate</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="hero-bg h-screen flex items-center justify-center relative clip-shape">
-        <div class="text-center text-white px-4 max-w-5xl mx-auto mt-16" data-aos="fade-up">
-            <span class="bg-brand-orange text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block">NGO Registration in Process</span>
-            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight drop-shadow-lg">
-                Empowering Lives, <span class="text-brand-orange">Restoring Dignity.</span>
+    <header class="hero-gradient h-screen flex items-center justify-center relative custom-shape">
+        <div class="text-center px-4 max-w-4xl mx-auto" data-aos="zoom-out">
+            <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm border border-white/20 px-4 py-1.5 rounded-full mb-6">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-orange opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-orange"></span>
+                </span>
+                <span class="text-white text-xs font-bold tracking-widest uppercase">Serving Humanity Since 2023</span>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-2xl">
+                Giving Hope to the <br> <span class="text-brand-orange italic">Underserved.</span>
             </h1>
-            <p class="text-lg md:text-xl mb-8 font-light text-gray-100 max-w-3xl mx-auto">
-                Bridging the gap between compassion and action. Under the leadership of Yashwanth Namani and Karthik Nimmangoti, we ensure no one sleeps hungry or cold.
+            
+            <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+                Every small contribution we make together has the power to change lives. Join us in our journey of compassion and action.
             </p>
 
-            <!-- Quick Impact Summary in Hero -->
-            <div class="flex justify-center gap-8 mb-8 text-sm md:text-base font-semibold">
-                <div class="flex items-center"><i class="fas fa-utensils text-brand-orange mr-2"></i> 10k+ Meals</div>
-                <div class="flex items-center"><i class="fas fa-snowflake text-brand-blue mr-2"></i> 5k+ Blankets</div>
-            </div>
-
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#donate" class="bg-brand-orange hover:bg-orange-600 text-white text-lg px-8 py-3 rounded-full font-bold shadow-lg transition transform hover:scale-105">
-                    Make a Donation
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-5">
+                <a href="#donate" class="w-full sm:w-auto bg-brand-orange text-white text-lg px-10 py-4 rounded-full font-bold shadow-2xl hover:bg-orange-600 transition transform hover:scale-105 active:scale-95">
+                    Start Donating
                 </a>
-                <a href="#volunteer" class="bg-transparent border-2 border-white hover:bg-white hover:text-brand-blue text-white text-lg px-8 py-3 rounded-full font-bold transition transform hover:scale-105">
-                    Join Our Mission
+                <a href="#volunteer" class="w-full sm:w-auto bg-white/10 border border-white/30 backdrop-blur-md text-white text-lg px-10 py-4 rounded-full font-bold hover:bg-white hover:text-brand-dark transition transform hover:scale-105">
+                    Be a Volunteer
                 </a>
             </div>
-        </div>
-        <div class="absolute bottom-10 animate-bounce">
-            <a href="#about" class="text-white text-2xl"><i class="fas fa-chevron-down"></i></a>
         </div>
     </header>
 
-    <!-- Impact Tracker Dashboard -->
-    <section class="py-10 -mt-16 relative z-20 px-4">
-        <div class="max-w-6xl mx-auto bg-white rounded-xl shadow-2xl p-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center border-b-4 border-brand-orange">
-            <div data-aos="zoom-in" data-aos-delay="100">
-                <div class="text-3xl font-bold text-brand-blue mb-1">Counting...</div>
-                <div class="text-gray-500 text-sm uppercase tracking-wide">Meals Served</div>
-            </div>
-            <div data-aos="zoom-in" data-aos-delay="200">
-                <div class="text-3xl font-bold text-brand-orange mb-1">In Progress</div>
-                <div class="text-gray-500 text-sm uppercase tracking-wide">Winter Kits</div>
-            </div>
-            <div data-aos="zoom-in" data-aos-delay="300">
-                <div class="text-3xl font-bold text-brand-blue mb-1">Growing</div>
-                <div class="text-gray-500 text-sm uppercase tracking-wide">Active Volunteers</div>
-            </div>
-            <div data-aos="zoom-in" data-aos-delay="400">
-                <div class="text-3xl font-bold text-brand-orange mb-1">Started</div>
-                <div class="text-gray-500 text-sm uppercase tracking-wide">Events Conducted</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Us & Founders -->
-    <section id="about" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-brand-blue mb-4">The Heart of Manavistra</h2>
-                <div class="w-24 h-1 bg-brand-orange mx-auto"></div>
-                <p class="mt-4 text-gray-600 italic">"Kindness requires action."</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-16">
+    <!-- Impact Gallery / Carousel Section -->
+    <section id="impact" class="pt-24 pb-12 bg-brand-dark overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16" data-aos="fade-up">
                 <div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Why We Started</h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                        Manavistra Foundation was born from a simple realization: many people want to help, but don't know how. We wanted to bridge that gap. We started as a small group of friends distributing food on weekends, and today, we are a movement.
-                    </p>
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                        Our core values are <strong class="text-brand-blue">Transparency</strong>, <strong class="text-brand-blue">Empathy</strong>, and <strong class="text-brand-blue">Immediate Action</strong>. We don't just provide aid; we restore hope.
-                    </p>
-                    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
-                        <p class="text-sm text-yellow-800">
-                            <strong>Note:</strong> Our official NGO registration is currently in process. All activities are conducted with full transparency and community support.
-                        </p>
+                    <span class="text-brand-orange font-bold text-sm tracking-widest uppercase mb-4 block">Recent Story</span>
+                    <h2 class="text-4xl md:text-5xl font-bold text-white">Project <span class="text-brand-orange italic">Compassion</span></h2>
+                </div>
+                <p class="text-gray-400 max-w-md mt-6 md:mt-0">Explore our recent journey of impact. Here are the defining moments from our Blanket Drive held on February 8th.</p>
+            </div>
+
+            <!-- Carousel Component -->
+            <div class="max-w-[450px] mx-auto relative group" data-aos="zoom-in">
+                <!-- Slide Container -->
+                <div class="aspect-[4/5] bg-zinc-900 rounded-[2.5rem] shadow-2xl overflow-hidden relative border border-white/5" id="carousel-container">
+                    
+                    <!-- Slide 1: Cover -->
+                    <div class="carousel-slide active w-full h-full flex-col justify-end p-8 text-white relative">
+                        <video class="absolute inset-0 w-full h-full object-cover opacity-60" autoplay muted loop playsinline>
+                            <source src="https://res.cloudinary.com/do4nuj2kh/video/upload/v1770911234/WhatsApp_Video_2026-02-12_at_9.13.52_PM_2_lepsq9.mp4" type="video/mp4">
+                        </video>
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent"></div>
+                        <div class="relative z-10 animate-in fade-in slide-in-from-bottom-10 duration-700">
+                            <span class="bg-brand-orange text-[10px] font-bold px-3 py-1 rounded-full mb-3 inline-block">MSSO INITIATIVE</span>
+                            <h3 class="text-4xl font-bold mb-2">BLANKET DRIVE <br><span class="text-brand-orange">2026</span></h3>
+                            <p class="text-xs text-gray-300 font-bold tracking-widest">8TH FEBRUARY | LINGAMPALLY STATION</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: The Mission -->
+                    <div class="carousel-slide w-full h-full flex-col justify-center p-10 text-center text-white relative">
+                        <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1770911234/WhatsApp_Image_2026-02-10_at_6.52.21_PM_1_x35605.jpg" class="absolute inset-0 w-full h-full object-cover opacity-30">
+                        <div class="absolute inset-0 bg-brand-dark/60"></div>
+                        <div class="relative z-10">
+                            <i class="fas fa-bullseye text-brand-orange text-3xl mb-6"></i>
+                            <h4 class="text-xl font-bold mb-4 serif">The Mission</h4>
+                            <p class="text-lg leading-relaxed text-gray-200">On 8th February, Manavistra Social Service Organisation (MSSO) successfully completed its first Blanket Drive at Lingampally Railway Station.</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: Impact Created -->
+                    <div class="carousel-slide w-full h-full flex-col justify-center p-10 text-white relative bg-zinc-950">
+                        <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1770911231/WhatsApp_Image_2026-02-10_at_6.52.21_PM_ms2bxt.jpg" class="absolute inset-0 w-full h-full object-cover opacity-20 grayscale">
+                        <div class="relative z-10 space-y-8">
+                            <div class="border-l-4 border-brand-orange pl-6">
+                                <span class="text-brand-orange text-xs font-bold uppercase tracking-widest block mb-1">Funds Raised</span>
+                                <h5 class="text-4xl font-bold">₹5,500 - ₹6,000</h5>
+                            </div>
+                            <div class="border-l-4 border-brand-orange pl-6">
+                                <span class="text-brand-orange text-xs font-bold uppercase tracking-widest block mb-1">Beneficiaries</span>
+                                <h5 class="text-4xl font-bold text-brand-gold">30+ PEOPLE</h5>
+                            </div>
+                            <div class="border-l-4 border-brand-orange pl-6">
+                                <span class="text-brand-orange text-xs font-bold uppercase tracking-widest block mb-1">Support</span>
+                                <p class="text-sm text-gray-300">Blankets, one meal, and a water bottle per person.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4: Reflection -->
+                    <div class="carousel-slide w-full h-full flex-col justify-center items-center p-12 text-center text-white relative bg-zinc-900">
+                        <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1770911234/WhatsApp_Image_2026-02-10_at_6.52.21_PM_2_xwi4hm.jpg" class="absolute inset-0 w-full h-full object-cover opacity-20">
+                        <div class="relative z-10">
+                            <span class="text-5xl text-brand-orange opacity-50 block mb-6">"</span>
+                            <p class="text-2xl font-light italic leading-relaxed mb-6 serif">When the right people come together with the right intent, change follows.</p>
+                            <div class="w-12 h-1 bg-brand-orange mx-auto"></div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 5: Closing -->
+                    <div class="carousel-slide w-full h-full flex-col justify-center items-center p-10 text-center text-white relative bg-brand-dark">
+                        <video class="absolute inset-0 w-full h-full object-cover opacity-50" autoplay muted loop playsinline>
+                            <source src="https://res.cloudinary.com/do4nuj2kh/video/upload/v1770911232/WhatsApp_Video_2026-02-12_at_9.13.52_PM_1_jdeuwv.mp4" type="video/mp4">
+                        </video>
+                        <div class="relative z-10">
+                            <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1764851074/Screenshot_2025-12-04_175159-removebg-preview_yqyj8n.png" class="h-20 mx-auto mb-8 brightness-0 invert">
+                            <h4 class="text-3xl font-bold mb-4">Grateful for your support.</h4>
+                            <p class="text-brand-orange font-bold tracking-widest uppercase text-xs">This is just the beginning.</p>
+                            <a href="#donate" class="mt-8 inline-block bg-white text-brand-dark px-8 py-3 rounded-full font-bold text-sm shadow-xl">Support Next Drive</a>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Controls Overlay -->
+                    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2 z-30" id="carousel-indicators">
+                        <!-- Dots populated by JS -->
+                    </div>
+
+                    <button id="prev-btn" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/30 backdrop-blur-md rounded-full text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 z-30">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button id="next-btn" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/30 backdrop-blur-md rounded-full text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 z-30">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <!-- Instagram UI Frame Elements (Subtle) -->
+                <div class="flex justify-between items-center mt-4 px-2 text-gray-400 text-sm">
+                    <div class="flex space-x-4">
+                        <i class="far fa-heart text-xl hover:text-brand-orange cursor-pointer"></i>
+                        <i class="far fa-comment text-xl hover:text-white cursor-pointer"></i>
+                        <i class="far fa-paper-plane text-xl hover:text-white cursor-pointer"></i>
+                    </div>
+                    <i class="far fa-bookmark text-xl hover:text-white cursor-pointer"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instagram Follow Banner -->
+        <div class="max-w-7xl mx-auto px-4 mt-20" data-aos="fade-up">
+            <div class="bg-white/5 border border-white/10 rounded-[2.5rem] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 group hover:bg-white/[0.08] transition duration-500">
+                <div class="flex items-center gap-6">
+                    <div class="w-16 h-16 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 rounded-2xl flex items-center justify-center text-white text-3xl shadow-lg shadow-red-500/20 group-hover:scale-110 transition duration-500">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-2xl font-bold text-white mb-1">Stay updated with our journey</h4>
+                        <p class="text-gray-400 text-sm">Follow us on Instagram for live updates and behind-the-scenes stories.</p>
                     </div>
                 </div>
+                <a href="https://www.instagram.com/msso_org?igsh=bnlscmVpNHcxZnht" target="_blank" class="w-full md:w-auto bg-white text-brand-dark px-10 py-4 rounded-full font-bold shadow-xl hover:bg-brand-orange hover:text-white transition transform active:scale-95 text-center">
+                    Follow @msso_org
+                </a>
+            </div>
+        </div>
+    </section>
 
-                <!-- Founders Profile -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <!-- Founder 1 -->
-                    <div class="bg-gray-50 rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition" data-aos="fade-left">
-                        <div class="w-48 h-48 bg-gray-300 rounded-full mx-auto mb-6 overflow-hidden border-4 border-white shadow-md">
-                            <!-- Updated Founder Image -->
-                            <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1764939946/Screenshot_2025-12-05_183453_hbpyig.png" alt="Yashwanth Namani" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=Yashwanth'">
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2" data-aos="fade-right">
+                    <span class="text-brand-orange font-bold text-sm tracking-widest uppercase mb-4 block">Meet Our Visionaries</span>
+                    <h2 class="text-4xl md:text-5xl font-bold text-brand-dark mb-8 leading-tight">Leadership with <br> <span class="italic text-brand-blue">Pure Intentions.</span></h2>
+                    <p class="text-gray-600 mb-6 leading-relaxed text-lg">
+                        Yashwanth and Karthik started this foundation with a single box of food. Since then, it has evolved into a significant movement. Our goal is simple: to eliminate dignity-stripping poverty within our local communities.
+                    </p>
+                    <div class="flex items-center space-x-4 mb-8">
+                        <div class="bg-blue-50 p-4 rounded-2xl">
+                            <i class="fas fa-heart text-brand-blue text-2xl"></i>
                         </div>
-                        <h4 class="text-2xl font-bold text-brand-blue">Yashwanth Namani</h4>
-                        <p class="text-brand-orange text-base font-semibold mb-2">Founder</p>
-                        <p class="text-gray-500 text-sm">Visionary leader dedicated to social welfare and sustainable community development.</p>
-                        <div class="mt-4 flex justify-center space-x-3 text-gray-400">
-                            <a href="https://www.linkedin.com/in/yashwanth-namani/" target="_blank" class="hover:text-brand-blue transition"><i class="fab fa-linkedin text-2xl"></i></a>
-                            <a href="https://www.instagram.com/yashwanth_4443/" target="_blank" class="hover:text-brand-orange transition"><i class="fab fa-instagram text-2xl"></i></a>
+                        <div>
+                            <h4 class="font-bold text-brand-dark">100% Transparency</h4>
+                            <p class="text-sm text-gray-500">Every donation is accounted for and publicly reported.</p>
                         </div>
                     </div>
-                    <!-- Founder 2 -->
-                    <div class="bg-gray-50 rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition" data-aos="fade-left" data-aos-delay="100">
-                        <div class="w-48 h-48 bg-gray-300 rounded-full mx-auto mb-6 overflow-hidden border-4 border-white shadow-md">
-                            <!-- Updated Founder Image -->
-                            <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1762505182/2acb59ba56324cd1864faab676db16c3_tqqqhg.jpg" alt="Karthik Nimmangoti" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=Karthik'">
+                    <a href="#volunteer" class="inline-flex items-center font-bold text-brand-blue hover:text-brand-orange transition group">
+                        Join their mission <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition"></i>
+                    </a>
+                </div>
+                
+                <div class="lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-8" data-aos="fade-left">
+                    <div class="bg-gray-50 p-8 rounded-[2rem] border-b-8 border-brand-blue impact-card transition">
+                        <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1764939946/Screenshot_2025-12-05_183453_hbpyig.png" 
+                             class="w-32 h-32 rounded-3xl object-cover mb-6 border-4 border-white shadow-lg mx-auto">
+                        <h3 class="text-xl font-bold text-center text-brand-dark">Yashwanth Namani</h3>
+                        <p class="text-center text-brand-orange text-sm font-bold mb-4">Founder</p>
+                        <div class="flex justify-center space-x-4 text-gray-400">
+                            <a href="https://www.linkedin.com/in/yashwanth-namani/" target="_blank" class="hover:text-blue-600"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://www.instagram.com/yashwanth_4443/" target="_blank" class="hover:text-pink-600"><i class="fab fa-instagram"></i></a>
                         </div>
-                        <h4 class="text-2xl font-bold text-brand-blue">Karthik Nimmangoti</h4>
-                        <p class="text-brand-orange text-base font-semibold mb-2">Co-Founder</p>
-                        <p class="text-gray-500 text-sm">Operations strategist ensuring every resource reaches the right hands efficiently.</p>
-                        <div class="mt-4 flex justify-center space-x-3 text-gray-400">
-                            <a href="https://www.linkedin.com/in/karthik-nimmanagoti-52a403324" target="_blank" class="hover:text-brand-blue transition"><i class="fab fa-linkedin text-2xl"></i></a>
-                            <a href="https://www.instagram.com/nimmanagoti.karthik/" target="_blank" class="hover:text-brand-orange transition"><i class="fab fa-instagram text-2xl"></i></a>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-8 rounded-[2rem] border-b-8 border-brand-orange impact-card transition">
+                        <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1762505182/2acb59ba56324cd1864faab676db16c3_tqqqhg.jpg" 
+                             class="w-32 h-32 rounded-3xl object-cover mb-6 border-4 border-white shadow-lg mx-auto">
+                        <h3 class="text-xl font-bold text-center text-brand-dark">Karthik Nimmangoti</h3>
+                        <p class="text-center text-brand-orange text-sm font-bold mb-4">Co-Founder</p>
+                        <div class="flex justify-center space-x-4 text-gray-400">
+                            <a href="https://www.linkedin.com/in/karthik-nimmanagoti-52a403324" target="_blank" class="hover:text-blue-600"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://www.instagram.com/nimmanagoti.karthik/" target="_blank" class="hover:text-pink-600"><i class="fab fa-instagram"></i></a>
                         </div>
                     </div>
                 </div>
@@ -216,113 +322,62 @@
         </div>
     </section>
 
-    <!-- Our Projects / Work -->
-    <section id="programs" class="py-20 bg-gray-100">
+    <!-- Initiatives Section -->
+    <section id="programs" class="py-24 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-brand-blue mb-4">Our Work</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Dedicated programs targeting specific needs in our society.</p>
+                <h2 class="text-4xl md:text-5xl font-bold text-brand-dark mb-4">Our Key Initiatives</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto">Even small acts of kindness can create life-changing transformations for those in need.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Program Cards (Enhanced) -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-2xl transition duration-300">
-                    <div class="h-72 bg-gray-200 bg-cover bg-center group-hover:scale-105 transition duration-500" style="background-image: url('https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                    <div class="p-6 relative">
-                        <div class="absolute -top-6 right-6 w-12 h-12 bg-brand-orange rounded-full flex items-center justify-center text-white text-xl font-bold shadow-lg">
-                            <i class="fas fa-utensils"></i>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="bg-white rounded-[2rem] overflow-hidden shadow-xl hover:-translate-y-2 transition duration-300 group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=800&q=80" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute top-6 left-6 bg-white/90 backdrop-blur px-4 py-1 rounded-full text-xs font-bold text-brand-blue shadow-lg">
+                            <i class="fas fa-bowl-food mr-1"></i> DAILY MEALS
                         </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Food Donation Drives</h3>
-                        <p class="text-gray-600 text-sm mb-4">Identifying hunger hotspots and serving freshly cooked meals.</p>
-                        <div class="border-t pt-4 flex justify-between items-center text-xs text-gray-500 font-semibold">
-                            <span><i class="fas fa-history mr-1"></i> Weekly</span>
-                            <span class="text-brand-blue">1200+ Helped</span>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold text-brand-dark mb-3">Anna Prasadam</h3>
+                        <p class="text-gray-600 text-sm mb-6 leading-relaxed">Providing nutritious, freshly cooked meals to daily wage laborers and homeless families.</p>
+                        <div class="flex justify-between items-center pt-6 border-t border-gray-100">
+                            <span class="text-brand-blue font-bold text-sm">₹50 = 1 Meal</span>
+                            <a href="#donate" class="bg-brand-orange/10 text-brand-orange px-4 py-2 rounded-full text-xs font-bold hover:bg-brand-orange hover:text-white transition">SUPPORT</a>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-2xl transition duration-300">
-                    <div class="h-72 bg-gray-200 bg-cover bg-center group-hover:scale-105 transition duration-500" style="background-image: url('https://images.unsplash.com/photo-1542459637-67c26c1122be?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                    <div class="p-6 relative">
-                        <div class="absolute -top-6 right-6 w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white text-xl font-bold shadow-lg">
-                            <i class="fas fa-snowflake"></i>
+                <div class="bg-white rounded-[2rem] overflow-hidden shadow-xl hover:-translate-y-2 transition duration-300 group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1542459637-67c26c1122be?auto=format&fit=crop&w=800&q=80" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute top-6 left-6 bg-white/90 backdrop-blur px-4 py-1 rounded-full text-xs font-bold text-brand-blue shadow-lg">
+                            <i class="fas fa-snowflake mr-1"></i> WINTER DRIVE
                         </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Winter Blanket Drive</h3>
-                        <p class="text-gray-600 text-sm mb-4">Distributing high-quality blankets to the homeless during harsh winters.</p>
-                        <div class="border-t pt-4 flex justify-between items-center text-xs text-gray-500 font-semibold">
-                            <span><i class="fas fa-calendar-alt mr-1"></i> Seasonal</span>
-                            <span class="text-brand-blue">5000+ Warmth</span>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold text-brand-dark mb-3">Project Warmth</h3>
+                        <p class="text-gray-600 text-sm mb-6 leading-relaxed">Protecting vulnerable individuals from harsh winter nights with high-quality blankets.</p>
+                        <div class="flex justify-between items-center pt-6 border-t border-gray-100">
+                            <span class="text-brand-blue font-bold text-sm">₹200 = 1 Blanket</span>
+                            <a href="#donate" class="bg-brand-orange/10 text-brand-orange px-4 py-2 rounded-full text-xs font-bold hover:bg-brand-orange hover:text-white transition">SUPPORT</a>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-2xl transition duration-300">
-                    <div class="h-72 bg-gray-200 bg-cover bg-center group-hover:scale-105 transition duration-500" style="background-image: url('https://images.unsplash.com/photo-1523565659223-3882f0592965?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                    <div class="p-6 relative">
-                        <div class="absolute -top-6 right-6 w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white text-xl font-bold shadow-lg">
-                            <i class="fas fa-tshirt"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Clothes Collection</h3>
-                        <p class="text-gray-600 text-sm mb-4">Collecting and distributing clean, dignified clothing to the needy.</p>
-                        <div class="border-t pt-4 flex justify-between items-center text-xs text-gray-500 font-semibold">
-                            <span><i class="fas fa-sync mr-1"></i> Monthly</span>
-                            <span class="text-brand-blue">Ongoing</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-2xl transition duration-300">
-                    <div class="h-72 bg-gray-200 bg-cover bg-center group-hover:scale-105 transition duration-500" style="background-image: url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                    <div class="p-6 relative">
-                        <div class="absolute -top-6 right-6 w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white text-xl font-bold shadow-lg">
-                            <i class="fas fa-bullhorn"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Awareness Campaigns</h3>
-                        <p class="text-gray-600 text-sm mb-4">Educating communities on hygiene, health, and education rights.</p>
-                        <div class="border-t pt-4 flex justify-between items-center text-xs text-gray-500 font-semibold">
-                            <span><i class="fas fa-users mr-1"></i> Community</span>
-                            <span class="text-brand-blue">Education</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-2xl transition duration-300">
-                    <div class="h-72 bg-gray-200 bg-cover bg-center group-hover:scale-105 transition duration-500" style="background-image: url('https://images.unsplash.com/photo-1516575334481-f85287c2c81d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                    <div class="p-6 relative">
-                        <div class="absolute -top-6 right-6 w-12 h-12 bg-red-600 rounded-full flex items-center justify-center text-white text-xl font-bold shadow-lg">
-                            <i class="fas fa-ambulance"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Emergency Support</h3>
-                        <p class="text-gray-600 text-sm mb-4">Rapid response fund for medical emergencies and disaster relief.</p>
-                        <div class="border-t pt-4 flex justify-between items-center text-xs text-gray-500 font-semibold">
-                            <span><i class="fas fa-bolt mr-1"></i> 24/7</span>
-                            <span class="text-brand-blue">Critical Care</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- New Instagram Reel Card -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-2xl transition duration-300">
-                    <a href="https://www.instagram.com/reel/DIrAByeh4Mu/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="block h-full">
-                        <div class="h-72 bg-gray-200 bg-cover bg-top group-hover:scale-105 transition duration-500 relative" style="background-image: url('https://res.cloudinary.com/do4nuj2kh/image/upload/v1764939407/Screenshot_2025-12-05_182125_e3vsml.png');">
-                            <!-- Play Overlay -->
-                            <div class="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-10 transition flex items-center justify-center">
-                                <div class="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center pl-1 shadow-lg backdrop-blur-sm group-hover:scale-110 transition">
-                                    <i class="fas fa-play text-brand-orange text-2xl"></i>
-                                </div>
+                <div class="bg-brand-dark rounded-[2rem] overflow-hidden shadow-2xl hover:-translate-y-2 transition duration-300 relative group" data-aos="fade-up" data-aos-delay="300">
+                    <a href="https://www.instagram.com/msso_org?igsh=bnlscmVpNHcxZnht" target="_blank">
+                        <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1764939407/Screenshot_2025-12-05_182125_e3vsml.png" 
+                             class="w-full h-full object-cover opacity-40 group-hover:opacity-60 transition group-hover:scale-110 duration-700">
+                        <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-8">
+                            <div class="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition">
+                                <i class="fas fa-play text-white text-2xl pl-1"></i>
                             </div>
-                        </div>
-                        <div class="p-6 relative">
-                            <!-- Instagram Gradient Icon -->
-                            <div class="absolute -top-6 right-6 w-12 h-12 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 rounded-full flex items-center justify-center text-white text-xl font-bold shadow-lg">
-                                <i class="fab fa-instagram"></i>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-2">Watch: Recent Impact</h3>
-                            <p class="text-gray-600 text-sm mb-4">See our team in action on the ground. A glimpse of our recent distribution drive.</p>
-                            <div class="border-t pt-4 flex justify-between items-center text-xs text-gray-500 font-semibold">
-                                <span><i class="fas fa-video mr-1"></i> Latest Reel</span>
-                                <span class="text-brand-blue group-hover:underline">Watch on Instagram <i class="fas fa-external-link-alt ml-1"></i></span>
-                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Impact in Motion</h3>
+                            <p class="text-gray-300 text-xs mb-4">Witness our on-ground efforts and stories of impact through our Instagram reels.</p>
+                            <span class="text-brand-orange text-xs font-bold uppercase tracking-widest">Follow Us <i class="fab fa-instagram ml-1"></i></span>
                         </div>
                     </a>
                 </div>
@@ -330,440 +385,210 @@
         </div>
     </section>
 
-    <!-- Upcoming Events Panel -->
-    <section id="events" class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
-                <div>
-                    <h2 class="text-3xl font-bold text-brand-blue">Upcoming Events</h2>
-                    <p class="text-gray-600 mt-2">Join us on ground and make a difference.</p>
-                </div>
-                <a href="#volunteer" class="mt-4 md:mt-0 text-brand-orange font-bold hover:underline">View All Events <i class="fas fa-arrow-right ml-1"></i></a>
-            </div>
-
-            <div class="space-y-4">
-                <!-- New Event Item: Lingampally Drive -->
-                <div class="bg-gray-50 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between border-l-4 border-brand-orange shadow-sm hover:shadow-md transition">
-                    <div class="flex items-center w-full md:w-auto mb-4 md:mb-0">
-                        <div class="bg-white p-3 rounded-lg text-center shadow mr-6 min-w-[80px]">
-                            <div class="text-xs text-gray-500 uppercase font-bold">FEB</div>
-                            <div class="text-2xl font-bold text-brand-blue">08</div>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-gray-800">Winter Blanket Drive</h3>
-                            <p class="text-gray-600 text-sm"><i class="fas fa-map-marker-alt text-gray-400 mr-2"></i>Lingampally Railway Station</p>
-                            <p class="text-xs text-gray-500 mt-1 italic">"Because warmth shouldn’t be a privilege. One life warmed."</p>
-                        </div>
-                    </div>
-                    <div class="flex space-x-3 w-full md:w-auto">
-                        <button onclick="document.getElementById('payment-modal').classList.remove('hidden')" class="flex-1 md:flex-none text-center border border-brand-orange text-brand-orange hover:bg-brand-orange hover:text-white px-5 py-2 rounded-lg text-sm font-semibold transition">Donate</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Media Gallery -->
-    <section id="gallery" class="py-16 bg-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-brand-blue">Our Impact Gallery</h2>
-                <p class="text-gray-600">Moments of joy and service.</p>
-            </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="gallery-item relative overflow-hidden rounded-lg h-80 group cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Gallery" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
-                    <div class="gallery-overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition duration-300">
-                        <span class="text-white font-bold text-lg">Food Drive</span>
-                    </div>
-                </div>
-                <div class="gallery-item relative overflow-hidden rounded-lg h-80 group cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Gallery" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
-                    <div class="gallery-overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition duration-300">
-                        <span class="text-white font-bold text-lg">Volunteers</span>
-                    </div>
-                </div>
-                <div class="gallery-item relative overflow-hidden rounded-lg h-80 group cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Gallery" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
-                    <div class="gallery-overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition duration-300">
-                        <span class="text-white font-bold text-lg">Smiles</span>
-                    </div>
-                </div>
-                <div class="gallery-item relative overflow-hidden rounded-lg h-80 group cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Gallery" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
-                    <div class="gallery-overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition duration-300">
-                        <span class="text-white font-bold text-lg">Community</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center text-brand-blue mb-12">Voices of Support</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100">
-                    <div class="text-brand-orange text-2xl mb-4"><i class="fas fa-quote-left"></i></div>
-                    <p class="text-gray-600 mb-4 text-sm">"Volunteering with Manavistra changed my perspective. It's not just about giving food; it's about giving time and love."</p>
-                    <div class="flex items-center">
-                        <div class="w-10 h-10 bg-gray-300 rounded-full mr-3"></div>
-                        <div>
-                            <p class="font-bold text-gray-900 text-sm">Sneha R.</p>
-                            <p class="text-xs text-gray-500">Active Volunteer</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100">
-                    <div class="text-brand-orange text-2xl mb-4"><i class="fas fa-quote-left"></i></div>
-                    <p class="text-gray-600 mb-4 text-sm">"They helped my family when we had nothing during the floods. I will always be grateful to Karthik and his team."</p>
-                    <div class="flex items-center">
-                        <div class="w-10 h-10 bg-gray-300 rounded-full mr-3"></div>
-                        <div>
-                            <p class="font-bold text-gray-900 text-sm">Ramesh K.</p>
-                            <p class="text-xs text-gray-500">Beneficiary</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-gray-50 p-6 rounded-xl shadow-sm border border-gray-100">
-                    <div class="text-brand-orange text-2xl mb-4"><i class="fas fa-quote-left"></i></div>
-                    <p class="text-gray-600 mb-4 text-sm">"Transparency is what I look for in an NGO. Manavistra shares every detail of how my donation is used."</p>
-                    <div class="flex items-center">
-                        <div class="w-10 h-10 bg-gray-300 rounded-full mr-3"></div>
-                        <div>
-                            <p class="font-bold text-gray-900 text-sm">Anjali M.</p>
-                            <p class="text-xs text-gray-500">Monthly Donor</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Volunteer & Contact Section -->
-    <section id="volunteer" class="py-20 bg-brand-blue relative">
-        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 20px 20px;"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <!-- Text Content -->
-                <div class="text-white">
-                    <h2 class="text-3xl font-bold mb-4">Join Us as a Volunteer</h2>
-                    <p class="text-blue-200 mb-8">Be the change you want to see. Fill out the form to get started.</p>
-
-                    <div class="space-y-6">
-                        <div class="flex items-start">
-                            <div class="bg-brand-orange p-3 rounded-lg mr-4">
-                                <i class="fas fa-hands-helping text-white"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg">On-Ground Service</h4>
-                                <p class="text-sm text-blue-200">Participate in food drives and distribution events.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="bg-brand-orange p-3 rounded-lg mr-4">
-                                <i class="fas fa-camera text-white"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg">Media & Tech</h4>
-                                <p class="text-sm text-blue-200">Help us with photography, social media, or management.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-10 border-t border-blue-800 pt-8">
-                        <h3 class="font-bold text-xl mb-4">Contact Information</h3>
-                        <ul class="space-y-3">
-                            <li class="flex items-center"><i class="fas fa-envelope w-6"></i> contact@manavistra.org</li>
-                            <li class="flex items-center"><i class="fas fa-phone w-6"></i> +91 98765 43210</li>
-                            <li class="flex items-center"><i class="fas fa-map-marker-alt w-6"></i> Hyderabad, Telangana</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Volunteer Form -->
-                <div class="bg-white rounded-2xl p-8 shadow-2xl">
-                    <form onsubmit="event.preventDefault(); alert('Thank you for registering! We will contact you soon.')">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                            <div>
-                                <label class="block text-gray-700 text-sm font-bold mb-2">Full Name</label>
-                                <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-brand-blue" placeholder="John Doe">
-                            </div>
-                            <div>
-                                <label class="block text-gray-700 text-sm font-bold mb-2">Phone Number</label>
-                                <input type="tel" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-brand-blue" placeholder="+91">
-                            </div>
-                        </div>
-                        <div class="mb-6">
-                            <label class="block text-gray-700 text-sm font-bold mb-2">Email Address</label>
-                            <input type="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-brand-blue" placeholder="john@example.com">
-                        </div>
-                        <div class="mb-6">
-                            <label class="block text-gray-700 text-sm font-bold mb-2">Interest Area</label>
-                            <select class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-brand-blue">
-                                <option>Food Distribution</option>
-                                <option>Social Media</option>
-                                <option>Event Planning</option>
-                                <option>Fundraising</option>
-                            </select>
-                        </div>
-                        <div class="mb-6">
-                            <label class="block text-gray-700 text-sm font-bold mb-2">Message (Optional)</label>
-                            <textarea class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-brand-blue h-24"></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-brand-orange hover:bg-orange-600 text-white font-bold py-3 rounded-lg shadow-md transition">Register as Volunteer</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="py-16 bg-gray-50">
-        <div class="max-w-4xl mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center text-brand-blue mb-8">Frequently Asked Questions</h2>
-            <div class="space-y-4">
-                <details class="bg-white p-6 rounded-lg shadow-sm group">
-                    <summary class="flex justify-between items-center font-bold cursor-pointer list-none">
-                        <span>Is Manavistra Foundation a registered NGO?</span>
-                        <span class="transition group-open:rotate-180"><i class="fas fa-chevron-down"></i></span>
-                    </summary>
-                    <p class="text-gray-600 mt-4 text-sm">We are currently in the process of official registration. However, our groundwork has been active for over a year with full community support and transparency.</p>
-                </details>
-                <details class="bg-white p-6 rounded-lg shadow-sm group">
-                    <summary class="flex justify-between items-center font-bold cursor-pointer list-none">
-                        <span>How can I donate?</span>
-                        <span class="transition group-open:rotate-180"><i class="fas fa-chevron-down"></i></span>
-                    </summary>
-                    <p class="text-gray-600 mt-4 text-sm">You can donate via UPI, Bank Transfer, or by scanning the QR code in the "Donate" section. We accept contributions for specific causes like blankets or food.</p>
-                </details>
-                <details class="bg-white p-6 rounded-lg shadow-sm group">
-                    <summary class="flex justify-between items-center font-bold cursor-pointer list-none">
-                        <span>Will I get a receipt for my donation?</span>
-                        <span class="transition group-open:rotate-180"><i class="fas fa-chevron-down"></i></span>
-                    </summary>
-                    <p class="text-gray-600 mt-4 text-sm">Currently, we provide a simple acknowledgement receipt. Automated 80G tax-exemption receipts will be available once our registration process is complete.</p>
-                </details>
-            </div>
-        </div>
-    </section>
-
-    <!-- Donate Section (Expanded) -->
-    <section id="donate" class="py-20 bg-white border-t">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="mb-12">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">Your Contribution Matters</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">100% of your donation goes directly to the cause. We maintain zero administrative waste.</p>
+    <!-- Donation Section -->
+    <section id="donate" class="py-24 bg-slate-50 relative">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-brand-dark mb-4">Make a Difference</h2>
+                <p class="text-gray-500">Every single contribution helps us extend our reach to one more soul in need.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                <div class="bg-gray-50 p-8 rounded-xl border hover:border-brand-orange transition cursor-pointer" onclick="document.getElementById('payment-modal').classList.remove('hidden')">
-                    <div class="text-3xl font-bold text-brand-blue mb-2">₹500</div>
-                    <p class="text-gray-500 mb-4">Feeds a family for a week</p>
-                    <button class="bg-white border border-brand-blue text-brand-blue px-6 py-2 rounded-full font-bold hover:bg-brand-blue hover:text-white transition">Donate ₹500</button>
+                <div class="bg-white p-10 rounded-[2.5rem] shadow-lg border border-gray-100 text-center hover:border-brand-blue transition group">
+                    <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition">
+                        <i class="fas fa-heart text-brand-blue text-2xl"></i>
+                    </div>
+                    <div class="text-4xl font-bold text-brand-dark mb-2">₹500</div>
+                    <p class="text-gray-500 text-sm mb-8">Provides nutritious meals for a family of four for one full week.</p>
+                    <button onclick="document.getElementById('payment-modal').classList.remove('hidden')" class="w-full border-2 border-brand-blue text-brand-blue py-3 rounded-full font-bold hover:bg-brand-blue hover:text-white transition">Donate Now</button>
                 </div>
-                <div class="bg-brand-orange text-white p-8 rounded-xl shadow-xl transform scale-105">
-                    <div class="absolute top-0 right-0 bg-yellow-400 text-xs font-bold px-3 py-1 rounded-bl-lg text-gray-800">POPULAR</div>
-                    <div class="text-3xl font-bold mb-2">₹1,000</div>
-                    <p class="text-blue-100 mb-4">Provides 5 warm blankets</p>
-                    <button class="bg-white text-brand-orange px-8 py-3 rounded-full font-bold shadow-lg hover:bg-gray-100 transition" onclick="document.getElementById('payment-modal').classList.remove('hidden')">Donate ₹1,000</button>
-                </div>
-                <div class="bg-gray-50 p-8 rounded-xl border hover:border-brand-orange transition cursor-pointer" onclick="document.getElementById('payment-modal').classList.remove('hidden')">
-                    <div class="text-3xl font-bold text-brand-blue mb-2">Custom</div>
-                    <p class="text-gray-500 mb-4">Any amount helps us</p>
-                    <button class="bg-white border border-brand-blue text-brand-blue px-6 py-2 rounded-full font-bold hover:bg-brand-blue hover:text-white transition">Donate Amount</button>
-                </div>
-            </div>
 
-            <div class="mt-12 bg-blue-50 p-6 rounded-lg inline-block text-left">
-                <h4 class="font-bold text-brand-blue mb-2"><i class="fas fa-lock mr-2"></i>Transparency Promise</h4>
-                <p class="text-sm text-gray-600">We share monthly expense reports with all our donors. You will know exactly where your money went.</p>
+                <div class="bg-brand-blue p-10 rounded-[2.5rem] shadow-2xl text-center relative transform scale-105 border-t-8 border-brand-orange">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand-orange text-white px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase">MOST NEEDED</div>
+                    <div class="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-snowflake text-white text-2xl"></i>
+                    </div>
+                    <div class="text-4xl font-bold text-white mb-2">₹1,000</div>
+                    <p class="text-blue-100 text-sm mb-8">Funds the distribution of 5 high-quality blankets for the winter relief drive.</p>
+                    <button onclick="document.getElementById('payment-modal').classList.remove('hidden')" class="w-full bg-brand-orange text-white py-3 rounded-full font-bold shadow-lg hover:bg-orange-600 transition">Donate Now</button>
+                </div>
+
+                <div class="bg-white p-10 rounded-[2.5rem] shadow-lg border border-gray-100 text-center hover:border-brand-blue transition group">
+                    <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition">
+                        <i class="fas fa-hand-holding-dollar text-brand-blue text-2xl"></i>
+                    </div>
+                    <div class="text-4xl font-bold text-brand-dark mb-2">Custom</div>
+                    <p class="text-gray-500 text-sm mb-8">No contribution is too small. Every rupee helps restore hope and dignity.</p>
+                    <button onclick="document.getElementById('payment-modal').classList.remove('hidden')" class="w-full border-2 border-brand-blue text-brand-blue py-3 rounded-full font-bold hover:bg-brand-blue hover:text-white transition">Donate Now</button>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer id="contact" class="bg-gray-900 text-gray-300 pt-16 pb-8 border-t border-gray-800">
+    <footer class="bg-brand-dark text-white pt-20 pb-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-                <!-- Brand -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                 <div class="col-span-1 md:col-span-1">
-                    <div class="flex items-center mb-4">
-                        <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1764851074/Screenshot_2025-12-04_175159-removebg-preview_yqyj8n.png" alt="Manavistra Logo" class="h-10 w-auto mr-3 grayscale hover:grayscale-0 transition" onerror="this.onerror=null; this.src='https://via.placeholder.com/40x40?text=MF'">
-                        <span class="font-bold text-xl text-white tracking-tight">Manavistra</span>
+                    <div class="flex items-center space-x-3 mb-6">
+                        <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1764851074/Screenshot_2025-12-04_175159-removebg-preview_yqyj8n.png" 
+                             class="h-10 w-auto brightness-0 invert opacity-80">
+                        <span class="font-bold text-xl tracking-tight">MANAVISTRA</span>
                     </div>
-                    <p class="text-sm text-gray-400 mb-6">
-                        Empowering the needy through food, shelter, and compassion.
+                    <p class="text-gray-400 text-sm leading-relaxed mb-8">
+                        Dedicated to serving humanity through transparency, empathy, and direct action. Join us in restoring dignity to every life we encounter.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="#" class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center hover:bg-brand-orange text-white transition"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.instagram.com/msso_org?igsh=MTI1cGo5YmRscXBhMg==" target="_blank" class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center hover:bg-brand-orange text-white transition"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center hover:bg-brand-orange text-white transition"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.instagram.com/msso_org?igsh=bnlscmVpNHcxZnht" target="_blank" class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-brand-orange transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-brand-orange transition"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-brand-orange transition"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
 
-                <!-- Links -->
                 <div>
-                    <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Explore</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#about" class="hover:text-brand-orange transition">About Us</a></li>
-                        <li><a href="#programs" class="hover:text-brand-orange transition">Our Work</a></li>
-                        <li><a href="#events" class="hover:text-brand-orange transition">Upcoming Events</a></li>
-                        <li><a href="#gallery" class="hover:text-brand-orange transition">Media Gallery</a></li>
+                    <h4 class="font-bold text-sm uppercase tracking-widest mb-6 text-brand-orange">Company</h4>
+                    <ul class="space-y-4 text-sm text-gray-400 font-medium">
+                        <li><a href="#about" class="hover:text-white transition">About Our Work</a></li>
+                        <li><a href="#programs" class="hover:text-white transition">Our Initiatives</a></li>
+                        <li><a href="#impact" class="hover:text-white transition">Impact Reports</a></li>
                     </ul>
                 </div>
 
-                <!-- Action -->
                 <div>
-                    <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Get Involved</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#volunteer" class="hover:text-brand-orange transition">Volunteer</a></li>
-                        <li><a href="#donate" class="hover:text-brand-orange transition">Donate</a></li>
-                        <li><a href="#" class="hover:text-brand-orange transition">Partner with Us</a></li>
+                    <h4 class="font-bold text-sm uppercase tracking-widest mb-6 text-brand-orange">Support</h4>
+                    <ul class="space-y-4 text-sm text-gray-400 font-medium">
+                        <li><a href="#donate" class="hover:text-white transition">Donate Now</a></li>
+                        <li><a href="#volunteer" class="hover:text-white transition">Be a Volunteer</a></li>
+                        <li><a href="#" class="hover:text-white transition">FAQ</a></li>
                     </ul>
                 </div>
 
-                <!-- Legal/Contact -->
                 <div>
-                    <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Contact</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-2 text-brand-orange"></i> Hyderabad, India</li>
-                        <li class="flex items-center"><i class="fas fa-phone-alt mr-2 text-brand-orange"></i> +91 98765 43210</li>
-                        <li class="flex items-center"><i class="fas fa-envelope mr-2 text-brand-orange"></i> contact@manavistra.org</li>
+                    <h4 class="font-bold text-sm uppercase tracking-widest mb-6 text-brand-orange">Contact</h4>
+                    <ul class="space-y-4 text-sm text-gray-400 font-medium">
+                        <li class="flex items-start"><i class="fas fa-location-dot mt-1 mr-3 text-brand-orange"></i> Hyderabad, India</li>
+                        <li class="flex items-center"><i class="fas fa-envelope mr-3 text-brand-orange"></i> contact@manavistra.org</li>
+                        <li class="flex items-center"><i class="fas fa-phone mr-3 text-brand-orange"></i> +91 81250 74369</li>
                     </ul>
                 </div>
             </div>
 
-            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-                <p>&copy; 2024 Manavistra Foundation. All Rights Reserved.</p>
-                <div class="flex space-x-6 mt-4 md:mt-0">
+            <div class="border-t border-white/5 pt-10 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+                <p>&copy; 2026 Manavistra Foundation. NGO Registration in Progress.</p>
+                <div class="flex space-x-6 mt-6 md:mt-0">
                     <a href="#" class="hover:text-white">Privacy Policy</a>
-                    <a href="#" class="hover:text-white">Terms of Service</a>
-                    <a href="#" class="hover:text-white">Refund Policy</a>
+                    <a href="#" class="hover:text-white">Terms of Use</a>
                 </div>
             </div>
         </div>
     </footer>
 
     <!-- Payment Modal -->
-    <div id="payment-modal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="flex items-center justify-center min-h-screen px-4 pb-20 text-center sm:p-0">
-            <div class="fixed inset-0 bg-gray-900 bg-opacity-80 transition-opacity backdrop-blur-sm" aria-hidden="true" onclick="document.getElementById('payment-modal').classList.add('hidden')"></div>
-
-            <div class="inline-block bg-white rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                <div class="bg-brand-blue px-4 py-4 sm:px-6 flex justify-between items-center">
-                    <h3 class="text-lg font-bold text-white" id="modal-title">Donate to Manavistra</h3>
-                    <button onclick="document.getElementById('payment-modal').classList.add('hidden')" class="text-blue-200 hover:text-white"><i class="fas fa-times"></i></button>
+    <div id="payment-modal" class="hidden fixed inset-0 z-[100] overflow-y-auto px-4 flex items-center justify-center">
+        <div class="fixed inset-0 bg-brand-dark/95 backdrop-blur-sm transition-opacity" onclick="document.getElementById('payment-modal').classList.add('hidden')"></div>
+        
+        <div class="bg-white rounded-[2.5rem] w-full max-w-lg relative z-10 overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200">
+            <div class="bg-brand-blue p-6 text-center">
+                <button onclick="document.getElementById('payment-modal').classList.add('hidden')" class="absolute top-6 right-6 text-white/50 hover:text-white transition"><i class="fas fa-times"></i></button>
+                <h3 class="text-xl font-bold text-white mb-2">Scan & Support</h3>
+                <p class="text-blue-200 text-xs">UPI payments accepted via GPay, PhonePe, and Paytm</p>
+            </div>
+            
+            <div class="p-10 text-center">
+                <div class="inline-block p-4 bg-gray-50 rounded-3xl border-2 border-brand-orange mb-6">
+                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1765887495/WhatsApp_Image_2025-12-16_at_5.47.53_PM_nxxhuj.jpg" 
+                         class="w-56 h-56 rounded-xl mx-auto shadow-md">
                 </div>
-
-                <div class="p-6">
-                    <div class="text-center mb-6">
-                        <p class="text-sm text-gray-500 mb-4">Scan with any UPI App (GPay, PhonePe, Paytm)</p>
-                        <div class="bg-white p-2 rounded-xl inline-block border-2 border-brand-orange shadow-md">
-                            <!-- Updated QR Code -->
-                            <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1765887495/WhatsApp_Image_2025-12-16_at_5.47.53_PM_nxxhuj.jpg" alt="Donate QR Code" class="w-48 h-48">
-                        </div>
-                        <div class="mt-3 flex justify-center items-center space-x-2 bg-gray-100 py-2 px-4 rounded-full mx-auto w-max">
-                            <span class="text-sm font-bold text-gray-700">UPI ID:</span>
-                            <span class="text-sm font-mono text-gray-600 select-all">8125074369-2@ybl</span>
-                            <button onclick="navigator.clipboard.writeText('8125074369-2@ybl'); alert('UPI ID Copied!')" class="text-brand-orange hover:text-orange-700"><i class="far fa-copy"></i></button>
-                        </div>
+                
+                <div class="bg-slate-100 rounded-2xl p-4 mb-6 flex items-center justify-between border border-slate-200">
+                    <div>
+                        <span class="text-[10px] block font-bold text-gray-400 uppercase tracking-widest text-left">UPI ID</span>
+                        <span class="font-mono text-brand-dark font-bold">8125074369-2@ybl</span>
                     </div>
-
-                    <div class="space-y-3 border-t border-gray-200 pt-4">
-                        <p class="text-xs text-gray-400 font-bold uppercase tracking-wider text-center mb-2">Or via Bank Transfer</p>
-                        <div class="flex justify-between p-3 bg-gray-50 rounded-lg border border-gray-100">
-                            <span class="font-semibold text-gray-600 text-sm">Bank Name</span>
-                            <span class="font-bold text-gray-800 text-sm">State Bank of India</span>
-                        </div>
-                        <div class="flex justify-between p-3 bg-gray-50 rounded-lg border border-gray-100">
-                            <span class="font-semibold text-gray-600 text-sm">Account No</span>
-                            <span class="font-bold text-gray-800 text-sm">19027104932</span>
-                        </div>
-                        <div class="flex justify-between p-3 bg-gray-50 rounded-lg border border-gray-100">
-                            <span class="font-semibold text-gray-600 text-sm">IFSC Code</span>
-                            <span class="font-bold text-gray-800 text-sm">APGB0001030</span>
-                        </div>
-                    </div>
-
-                    <div class="mt-6 text-center">
-                        <p class="text-xs text-gray-500">Receipts will be sent via WhatsApp/Email within 24 hours.</p>
-                    </div>
-                </div>
-
-                <div class="bg-gray-50 px-4 py-3 sm:px-6 flex justify-center">
-                    <button type="button" class="w-full inline-flex justify-center rounded-lg border border-transparent shadow-sm px-4 py-2 bg-brand-orange text-base font-bold text-white hover:bg-orange-700 focus:outline-none sm:w-auto sm:text-sm" onclick="alert('Payment Gateway Integration Pending. Please use Bank Transfer.')">
-                        Pay via Gateway (Coming Soon)
+                    <button onclick="navigator.clipboard.writeText('8125074369-2@ybl'); alert('UPI ID copied!')" 
+                            class="w-10 h-10 bg-white rounded-xl shadow-sm text-brand-orange hover:bg-brand-orange hover:text-white transition">
+                        <i class="far fa-copy"></i>
                     </button>
                 </div>
+
+                <div class="space-y-3 text-left">
+                    <div class="flex justify-between items-center text-sm px-2">
+                        <span class="text-gray-400">Bank</span>
+                        <span class="font-bold text-slate-800">State Bank of India</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm px-2">
+                        <span class="text-gray-400">A/C No</span>
+                        <span class="font-bold text-slate-800">19027104932</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm px-2">
+                        <span class="text-gray-400">IFSC</span>
+                        <span class="font-bold text-slate-800 uppercase">APGB0001030</span>
+                    </div>
+                </div>
+
+                <p class="mt-8 text-[10px] text-gray-400 uppercase tracking-widest leading-relaxed">
+                    Note: Registration is in progress. Acknowledgement receipts are currently shared via WhatsApp.
+                </p>
             </div>
         </div>
     </div>
 
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            once: true,
+        // AOS
+        AOS.init({ duration: 1000, once: true, offset: 50 });
+
+        // Navbar Scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-xl', 'h-16');
+                navbar.classList.remove('h-20');
+            } else {
+                navbar.classList.remove('shadow-xl', 'h-16');
+                navbar.classList.add('h-20');
+            }
         });
 
-        // Mobile menu toggle
-        const btn = document.getElementById('mobile-menu-btn');
+        // Mobile Menu
+        const menuBtn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
 
-        if (btn && menu) {
-            btn.addEventListener('click', () => {
-                menu.classList.toggle('hidden');
+        // Carousel Logic
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const indicatorsContainer = document.getElementById('carousel-indicators');
+
+        // Create Indicators
+        slides.forEach((_, i) => {
+            const dot = document.createElement('div');
+            dot.className = `h-1 rounded-full transition-all duration-300 ${i === 0 ? 'w-6 bg-brand-orange' : 'w-2 bg-white/30'}`;
+            dot.addEventListener('click', () => goToSlide(i));
+            indicatorsContainer.appendChild(dot);
+        });
+
+        function updateCarousel() {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === currentSlide);
+            });
+            const dots = indicatorsContainer.querySelectorAll('div');
+            dots.forEach((dot, i) => {
+                dot.className = `h-1 rounded-full transition-all duration-300 ${i === currentSlide ? 'w-6 bg-brand-orange' : 'w-2 bg-white/30'}`;
             });
         }
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const targetId = this.getAttribute('href');
+        function goToSlide(n) {
+            currentSlide = (n + slides.length) % slides.length;
+            updateCarousel();
+        }
 
-                // If the link is just "#" (like the logo or Home link), scroll to top
-                if (targetId === '#') {
-                    e.preventDefault();
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                    if (menu) menu.classList.add('hidden'); // Close menu if open
-                    return;
-                }
+        document.getElementById('next-btn').addEventListener('click', () => goToSlide(currentSlide + 1));
+        document.getElementById('prev-btn').addEventListener('click', () => goToSlide(currentSlide - 1));
 
-                // Try to find the target element
-                try {
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        e.preventDefault();
-                        if (menu) menu.classList.add('hidden'); // Close mobile menu on click
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                } catch (error) {
-                    // Ignore invalid selectors to prevent crashes
-                    console.warn('Invalid scroll target:', targetId);
-                }
-            });
-        });
-
-        // Navbar Scroll Effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('shadow-lg');
-                navbar.classList.add('bg-white/95');
-                navbar.classList.add('backdrop-blur-md');
-            } else {
-                navbar.classList.remove('shadow-lg');
-                navbar.classList.remove('bg-white/95');
-                navbar.classList.remove('backdrop-blur-md');
-            }
-        });
+        // Auto slide every 8 seconds
+        setInterval(() => goToSlide(currentSlide + 1), 8000);
     </script>
 </body>
 
